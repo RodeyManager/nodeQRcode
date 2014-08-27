@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>二维码生成器</title>
+	<meta charset="UTF-8">
+	<link rel="stylesheet" type="text/css" href="css/mian.css">
+</head>
+<body>
+	<section class="left-wrap">
+		<div id="qrcodeCanvas"></div>
+	</section>
+	<section class="right-wrap">
+		<fieldset class="field-wrap">
+			<legend>二维码选项：</legend>
+			<p>
+				<label>宽度：</label>
+				<input type="number" id="width" value="300"/>
+			</p>
+			<p>
+				<label>高度：</label>
+				<input type="number" id="height" value="300"/>
+			</p>
+			<p>
+				<label>图像颜色：</label>
+				<input type="color" id="qrcode-color" value="#1B342B"/>
+			</p>
+			<p>
+				<label>背景颜色：</label>
+				<input type="color" id="qrcode-bg-color" value="#FFFFFF"/>
+			</p>
+			<p>
+				<label>文本信息：</label>
+				<textarea id="qrcode-text" placeholder="请输入二维码信息"></textarea>
+			</p>
+			<p>
+				<span class="btns" id="grenate">生成</span>
+				<span class="btns" id="save">保存</span>
+			</p>
+		</fieldset>
+	</section>
+
+
+<script src="js/jquery-1.9.1.min.js"></script>
+<script src="js/jquery.qrcode.min.js"></script>
+<script>
+//导入node模块
+/*var nw = require('nw.gui');
+var fs = require('fs');*/
+
+$(document).ready(function(){
+
+	$('#width').on('keyup', keyPettran);
+
+
+	$('#qrcode-text').on('keyup', function(evt){
+		GrenateQRCODE();
+	});
+
+	$('#grenate').on('click', function(){
+		GrenateQRCODE();
+	});
+
+	$('#qrcode-color').on('change', function(evt){
+		GrenateQRCODE();
+	});
+	$('#qrcode-bg-color').on('change', function(evt){
+		GrenateQRCODE();
+	});
+
+	function GrenateQRCODE(){
+		if('' == $('#width').val() || '' == $('#height').val() || $('#width').val() == '0' || $('#width').val() == 0){
+			$('#width').val('300');
+			$('#height').val('300');
+		}
+		$('#qrcodeCanvas').html('');
+		$('#qrcodeCanvas').css({
+			'width': $('#width').val() || 300,
+			'height': $('#height').val() || 300,
+			'margin-left': -($('#width').val() || 300),
+			'margin-top': -($('#height').val() || 300) / 2
+		});
+		//console.log($('#qrcode-text').val());
+		$('#qrcodeCanvas').qrcode({
+			text	: $('#qrcode-text').val(),
+			render		: "canvas",
+			width		: $('#width').val() || 300,
+			height		: $('#height').val() || 300,
+            background      : $('#qrcode-bg-color').val() || '#FFFFFF',
+            foreground      : $('#qrcode-color').val() || '#1B342B'
+		});
+	}
+
+	function keyPettran(evt){
+		var self = this;
+		var target = evt.currentTarget || evt.target;
+		var value = target.value;
+		target.value = value.replace(/[^\d]/gi, '');
+	}
+
+	//保存
+	$('#save').on('click', function(evt){
+		var canvas = document.getElementsByTagName('canvas')[0];
+		var cxt = canvas.getContext('2d');
+		var image = canvas.toDataURL('image/png').replace("image/png", "image/octet-stream");
+		window.location.href = image;
+	});
+});
+	
+		
+</script>
+
+</body>
+</html>

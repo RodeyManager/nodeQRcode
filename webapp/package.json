@@ -1,0 +1,28 @@
+{
+    "name": "nodeQRCode",								//APP名称
+    "main": "index.html",								//默认打开页面
+	"description" : "QRCode app of node-webkit" ,		//APP的简单描述
+	"version" : "0.1.0" ,								//APP的版本号
+	"keywords" : [ "QRCode" , "node-webkit" ],			//APP的关键字
+	"window" : {					/* --- APP的窗口属性 --- */
+		"icon" : "link.png" ,		//APP图标（windows下，状态栏上可见） */
+		"toolbar" : false ,			//是否显示工具栏
+		"width" : 750,				//窗口初始化大小
+		"height" : 500,
+		"min_width": 750,
+		"min_height": 500,
+		"frame" : true,				//是否显示外窗体，如最大化、最小化、关闭按钮
+		"resizable": false,			//禁止缩放							
+		"position": "center",		//默认打开屏幕居中
+		"show_in_taskbar": true		//是否在状态栏中显示
+	},
+	"repository": {					//git地址
+	    "type": "git",
+	    "url": "git://github.com/RodeyManager/nodeQRcode.git"
+	},
+	"homepage": "https://github.com/RodeyManager/nodeQRcode", 	//项目首页
+	"author": {													//作者
+		"name": "Rodey",
+		"email": "rodeyluo@gmail.com"
+	}
+}
